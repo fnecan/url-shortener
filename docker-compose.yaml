@@ -1,0 +1,18 @@
+version: "2"
+services:
+  app:
+    container_name: app
+    build: .
+    ports:
+        - "3000:3000"
+    environment:
+        - REDIS_URL=redis://storage
+    links:
+        - redis
+  redis:
+    image: redis
+    container_name: storage
+    volumes:
+        - ./redis-data:/data/db
+    ports:
+        - "6379"
